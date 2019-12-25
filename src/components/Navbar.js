@@ -7,7 +7,7 @@ const Navbars = () => {
         <Navbar bg="dark" variant="dark">
             <Navbar.Brand as ={Link} to ="/">Cryptocurrency</Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link as={Link} to="/">List</Nav.Link>
+                <Nav.Link as = {Link} to="/">List</Nav.Link>
                 <Nav.Link as={Link} to="/settings">Settings</Nav.Link>
             </Nav>
         </Navbar>
