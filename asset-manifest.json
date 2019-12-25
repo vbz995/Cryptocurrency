@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/Cryptocurrency/static/css/main.cf24e7a6.chunk.css",
-    "main.js": "/Cryptocurrency/static/js/main.98f6db69.chunk.js",
-    "main.js.map": "/Cryptocurrency/static/js/main.98f6db69.chunk.js.map",
-    "runtime-main.js": "/Cryptocurrency/static/js/runtime-main.0811d490.js",
-    "runtime-main.js.map": "/Cryptocurrency/static/js/runtime-main.0811d490.js.map",
-    "static/css/2.17e5ed98.chunk.css": "/Cryptocurrency/static/css/2.17e5ed98.chunk.css",
-    "static/js/2.c4093d3f.chunk.js": "/Cryptocurrency/static/js/2.c4093d3f.chunk.js",
-    "static/js/2.c4093d3f.chunk.js.map": "/Cryptocurrency/static/js/2.c4093d3f.chunk.js.map",
-    "index.html": "/Cryptocurrency/index.html",
-    "precache-manifest.34cf16c8d1e64ef30bcea28db9153e23.js": "/Cryptocurrency/precache-manifest.34cf16c8d1e64ef30bcea28db9153e23.js",
-    "service-worker.js": "/Cryptocurrency/service-worker.js",
-    "static/css/2.17e5ed98.chunk.css.map": "/Cryptocurrency/static/css/2.17e5ed98.chunk.css.map",
-    "static/css/main.cf24e7a6.chunk.css.map": "/Cryptocurrency/static/css/main.cf24e7a6.chunk.css.map",
-    "static/js/2.c4093d3f.chunk.js.LICENSE": "/Cryptocurrency/static/js/2.c4093d3f.chunk.js.LICENSE"
+    "main.css": "/static/css/main.cf24e7a6.chunk.css",
+    "main.js": "/static/js/main.7a0185cf.chunk.js",
+    "main.js.map": "/static/js/main.7a0185cf.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.62bfc51b.js",
+    "runtime-main.js.map": "/static/js/runtime-main.62bfc51b.js.map",
+    "static/css/2.17e5ed98.chunk.css": "/static/css/2.17e5ed98.chunk.css",
+    "static/js/2.c4093d3f.chunk.js": "/static/js/2.c4093d3f.chunk.js",
+    "static/js/2.c4093d3f.chunk.js.map": "/static/js/2.c4093d3f.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.06d811429dccd8cda91a525ac5d27cd0.js": "/precache-manifest.06d811429dccd8cda91a525ac5d27cd0.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.17e5ed98.chunk.css.map": "/static/css/2.17e5ed98.chunk.css.map",
+    "static/css/main.cf24e7a6.chunk.css.map": "/static/css/main.cf24e7a6.chunk.css.map",
+    "static/js/2.c4093d3f.chunk.js.LICENSE": "/static/js/2.c4093d3f.chunk.js.LICENSE"
   },
   "entrypoints": [
-    "static/js/runtime-main.0811d490.js",
+    "static/js/runtime-main.62bfc51b.js",
     "static/css/2.17e5ed98.chunk.css",
     "static/js/2.c4093d3f.chunk.js",
     "static/css/main.cf24e7a6.chunk.css",
-    "static/js/main.98f6db69.chunk.js"
+    "static/js/main.7a0185cf.chunk.js"
   ]
 }
