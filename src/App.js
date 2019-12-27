@@ -1,7 +1,7 @@
-import React from 'react';
-import './App.css';
-import Navbars from './components/Navbar'
+import React from "react";
+import "./App.css";
+import Navbars from "./components/Navbar";
 function App() {
-  return <Navbars />
+  return <Navbars />;
 }
-export default (App);
+export default App;
