@@ -5,7 +5,7 @@ const initState = {
     dataBitcoin:null,
     selectedId:null,
     selectedCrypto:{},
-    data:[],
+    data:{},
     pending: false,
     error: null
 

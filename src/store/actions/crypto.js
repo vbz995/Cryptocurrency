@@ -17,10 +17,13 @@ export const fetchCryptosPending =()=>({
     type:actionTypes.FETCH_CRYPTOS_PENDING
 
 })
-export const fetchCryptos=(cur)=>{
+export const fetchCryptos=(start,limit,cur)=>{
+    parseInt(start)
+    parseInt(limit)
+    console.log("limit", limit)
     return dispatch=>{
         dispatch(fetchCryptosPending())
-         fetch(`https://cors-anywhere.herokuapp.com/https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?convert=${cur}`, {
+         fetch(`https://cors-anywhere.herokuapp.com/https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=${start}&limit=${limit}&convert=${cur}`, {
             method:'GET',
             headers:{
                 'Accept': 'application/json',
@@ -30,12 +33,14 @@ export const fetchCryptos=(cur)=>{
 	})
         .then(res=>res.json())
         .then(res=>{
+            console.log("RES: ", res)
             if(res.error){
                 throw(res.error)
             }
             dispatch(fetchCryptosSuccess(res.data))
         })
         .catch(error=>{
+            console.log("ReS ERROR: ", error)
             dispatch(fetchCryptosFail(error))
         })
     }

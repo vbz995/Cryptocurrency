@@ -4,17 +4,19 @@ import  {fetchCryptos} from '../store/actions/crypto'
 import {Table, Spinner} from 'react-bootstrap'
 import { Container, Button } from 'react-bootstrap';
 import {selectedCryptoId} from '../store/actions/crypto'
-
+import Paginations from './Paginations'
 const CryptocurrencyList = (props) => {
-  const {FetchCryptos, data, pendingCrypto, selectedCurrency, SelectedCryptoId}=props
+  const {FetchCryptos, data, pendingCrypto, selectedCurrency, SelectedCryptoId, activePagination}=props
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => FetchCryptos(selectedCurrency), [selectedCurrency])
+  useEffect(() => FetchCryptos(parseInt(((activePagination-1)*10)+1),"10",selectedCurrency), [selectedCurrency])
+  console.log("data", data)
    return(
         <Container>
-        <Button onClick = {() => FetchCryptos(selectedCurrency)}>REFRESH</Button>
+        <Button onClick = {() => FetchCryptos(parseInt(((activePagination-1)*10)+1),"10",selectedCurrency)}>REFRESH</Button>
         {pendingCrypto?<Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>
         </Spinner>:
+        <Container>
         <Table striped bordered hover>
         <thead>
             <tr>
@@ -35,10 +37,16 @@ const CryptocurrencyList = (props) => {
                 <td>{datas.quote[selectedCurrency].percent_change_24h}</td>
            </tr>
             )   
-            }): console.log("Fail")}
+            }): console.log("FAIL")}
         </tbody> 
     </Table>
-        }
+    {data!==undefined?<Paginations />:console.log("sasasaasa")}
+     
+     </Container>
+
+    
+}
+    
         </Container>
    )
  }
@@ -49,13 +57,14 @@ const mapStateToProps = state=>{
       data:state.crypto.data,
       pendingCrypto:state.crypto.pending,
       errorCrypto:state.crypto.error,
-      selectedCurrency:state.currency.selectedCurrency   
+      selectedCurrency:state.currency.selectedCurrency,
+      activePagination:state.pagination.activePagination   
   }
     }
     
   const mapDispatchToProps = dispatch =>{
       return {
-        FetchCryptos: (cur) => dispatch(fetchCryptos(cur)),
+        FetchCryptos: (start, limit,cur) => dispatch(fetchCryptos(start, limit,cur)),
         SelectedCryptoId: (id) =>dispatch(selectedCryptoId(id))
       }
     }

@@ -13,12 +13,13 @@ import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CryptoCurrencyList from './components/CryptoCurrencyList'
 import CryptoCurrencyDetails from './components/CryptoCurrencyDetails';
 import Settings from './components/Settings';
+import PaginationReducer from './store/reducers/pagination';
 
 
 const rootReducer = combineReducers({
     crypto: CryptoReducer,
-    currency: CurrencyReducer
-
+    currency: CurrencyReducer,
+    pagination:PaginationReducer
 })
 const store = createStore(
     rootReducer,
