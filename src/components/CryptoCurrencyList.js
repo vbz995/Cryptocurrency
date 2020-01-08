@@ -1,44 +1,112 @@
+/* eslint-disable no-unused-expressions */
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchCryptos } from "../store/actions/crypto";
-import { Table, Spinner } from "react-bootstrap";
-import { Container, Button } from "react-bootstrap";
-import { selectedCryptoId } from "../store/actions/crypto";
+import {
+  fetchCryptos,
+  selectedCryptoId,
+  setItemsPerPage,
+  setActivePage
+} from "../store/actions/index";
+import {
+  Table,
+  Spinner,
+  FormLabel,
+  Dropdown,
+  DropdownButton,
+  Form,
+  Container,
+  Button
+} from "react-bootstrap";
 import Paginations from "./Paginations";
+
+const listData = (data, activePage, itemsPerPage, newDataArray) => {
+  for (
+    let i = (activePage - 1) * itemsPerPage;
+    i < activePage * itemsPerPage;
+    i++
+  ) {
+    data[i] !== undefined ? newDataArray.push(data[i]) : null;
+  }
+};
 const CryptocurrencyList = props => {
+  const newDataArray = [];
   const {
     FetchCryptos,
     data,
     pendingCrypto,
     selectedCurrency,
     SelectedCryptoId,
-    activePagination
+    activePage,
+    itemsPerPage,
+    SetActivePagination,
+    SetItemsPerPage
   } = props;
 
   useEffect(
-    () =>
-      FetchCryptos(
-        parseInt((activePagination - 1) * 10 + 1),
-        "10",
-        selectedCurrency
-      ),
+    () => FetchCryptos(selectedCurrency),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedCurrency]
+    [activePage, itemsPerPage]
   );
-  console.log("data", data);
+  data !== undefined
+    ? listData(data, activePage, itemsPerPage, newDataArray)
+    : null;
   return (
     <Container>
       <Button
-        onClick={() =>
-          FetchCryptos(
-            parseInt((activePagination - 1) * 10 + 1),
-            "10",
-            selectedCurrency
-          )
-        }
+        className="float-left"
+        onClick={() => FetchCryptos(selectedCurrency)}
       >
         REFRESH
       </Button>
+      <Form inline className="float-right">
+        <FormLabel>Select number items per page: </FormLabel>
+        <DropdownButton
+          className="ml-2"
+          id="dropdown-basic-button"
+          title={itemsPerPage}
+        >
+          <Dropdown.Item
+            onClick={() => {
+              SetItemsPerPage(5);
+              SetActivePagination(1);
+            }}
+          >
+            5
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              SetItemsPerPage(10);
+              SetActivePagination(1);
+            }}
+          >
+            10
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              SetItemsPerPage(20);
+              SetActivePagination(1);
+            }}
+          >
+            20
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              SetItemsPerPage(50);
+              SetActivePagination(1);
+            }}
+          >
+            50
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              SetItemsPerPage(100);
+              SetActivePagination(1);
+            }}
+          >
+            100
+          </Dropdown.Item>
+        </DropdownButton>
+      </Form>
       {pendingCrypto ? (
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>
@@ -55,29 +123,26 @@ const CryptocurrencyList = props => {
               </tr>
             </thead>
             <tbody>
-              {data !== undefined
-                ? data.map(datas => {
-                    return (
-                      // eslint-disable-next-line no-restricted-globals
-                      <tr
-                        onClick={() => {
-                          SelectedCryptoId(datas.id);
-                          props.history.push("/details");
-                        }}
-                      >
-                        <td>{datas.cmc_rank}</td>
-                        <td>{datas.symbol}</td>
-                        <td>{datas.quote[selectedCurrency].price}</td>
-                        <td>
-                          {datas.quote[selectedCurrency].percent_change_24h}
-                        </td>
-                      </tr>
-                    );
-                  })
-                : console.log("FAIL")}
+              {newDataArray.map(data => {
+                return (
+                  // eslint-disable-next-line no-restricted-globals
+                  <tr
+                    key={data.id}
+                    onClick={() => {
+                      SelectedCryptoId(data.id);
+                      props.history.push("/details");
+                    }}
+                  >
+                    <td>{data.cmc_rank}</td>
+                    <td>{data.symbol}</td>
+                    <td>{data.quote[selectedCurrency].price}</td>
+                    <td>{data.quote[selectedCurrency].percent_change_24h}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </Table>
-          {data !== undefined ? <Paginations /> : console.log("sasasaasa")}
+          <Paginations />
         </Container>
       )}
     </Container>
@@ -91,15 +156,17 @@ const mapStateToProps = state => {
     pendingCrypto: state.crypto.pending,
     errorCrypto: state.crypto.error,
     selectedCurrency: state.currency.selectedCurrency,
-    activePagination: state.pagination.activePagination
+    activePage: state.pagination.activePage,
+    itemsPerPage: state.pagination.itemsPerPage
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    FetchCryptos: (start, limit, cur) =>
-      dispatch(fetchCryptos(start, limit, cur)),
-    SelectedCryptoId: id => dispatch(selectedCryptoId(id))
+    FetchCryptos: cur => dispatch(fetchCryptos(cur)),
+    SelectedCryptoId: id => dispatch(selectedCryptoId(id)),
+    SetItemsPerPage: items => dispatch(setItemsPerPage(items)),
+    SetActivePagination: active => dispatch(setActivePage(active))
   };
 };
 

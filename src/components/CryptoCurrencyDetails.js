@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Container, Table, Button, Spinner } from "react-bootstrap";
 import { connect } from "react-redux";
-import { getSelectedCrypto, fetchBitcoin } from "../store/actions/crypto";
+import { getSelectedCrypto, fetchBitcoin } from "../store/actions/index";
 const CryptoCurrencyDetails = props => {
   const {
     selectedCurrency,
@@ -70,7 +70,7 @@ const CryptoCurrencyDetails = props => {
                     </tr>
                   );
                 })
-              : console.log("Fail")}
+              : null}
           </tbody>
         </Table>
       )}

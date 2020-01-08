@@ -1,55 +1,28 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../../utility";
+import {
+  fetchingCryptoSuccess,
+  fetchingCryptoPending,
+  fetchingCryptoFail
+} from "./fetchingCryptos";
+import {
+  getCryptoSuccess,
+  getCryptoPending,
+  getCryptoFail,
+  getCryptoID
+} from "./selectedCrypto";
+import {
+  fetchingBitcoinSuccess,
+  fetchingBitcoinPending,
+  fetchingBitcoinFail
+} from "./fetchBitcoin";
 
 const initState = {
   dataBitcoin: null,
   selectedId: null,
   selectedCrypto: {},
-  data: {},
+  data: [],
   pending: false,
   error: null
-};
-const fetchingCryptoSuccess = (state, action) => {
-  return updateObject(state, { data: action.cryptos, pending: false });
-};
-
-const fetchingCryptoPending = (state, action) => {
-  return updateObject(state, { pending: true });
-};
-
-const fetchingCryptoFail = (state, action) => {
-  return updateObject(state, { pending: false, error: action.error });
-};
-
-const getCryptoSuccess = (state, action) => {
-  return updateObject(state, {
-    selectedCrypto: action.cryptos,
-    pending: false
-  });
-};
-
-const getCryptoPending = (state, action) => {
-  return updateObject(state, { pending: true });
-};
-
-const getCryptoFail = (state, action) => {
-  return updateObject(state, { pending: false, error: action.error });
-};
-
-const getCryptoID = (state, action) => {
-  return updateObject(state, { pending: false, selectedId: action.id });
-};
-
-const fetchingBitcoinSuccess = (state, action) => {
-  return updateObject(state, { dataBitcoin: action.cryptos, pending: false });
-};
-
-const fetchingBitcoinPending = (state, action) => {
-  return updateObject(state, { pending: true });
-};
-
-const fetchingBitcoinFail = (state, action) => {
-  return updateObject(state, { pending: false, error: action.error });
 };
 
 const CryptoReducer = (state = initState, action) => {

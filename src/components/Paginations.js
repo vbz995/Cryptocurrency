@@ -1,49 +1,92 @@
 import React from "react";
 import { Pagination } from "react-bootstrap";
 import { connect } from "react-redux";
-import { setActivePagination } from "../store/actions/pagination";
-import { fetchCryptos } from "../store/actions/crypto";
+import {
+  fetchCryptos,
+  setActivePage,
+  setItemsPerPage
+} from "../store/actions/index";
 
 const Paginations = props => {
-  const datasPerPages = 10;
   const pageNumbers = [];
-  console.log("this.prop", props.data);
-  if (props.data !== undefined) {
-    for (let i = 0; i < Math.ceil(100 / datasPerPages); i++) {
-      console.log("PAAAG: ", props.activePagination);
+  const {
+    data,
+    selectedCurrency,
+    itemsPerPage,
+    activePage,
+    SetActivePagination,
+    FetchCryptos
+  } = props;
+  if (data !== undefined) {
+    for (
+      let counter = 0;
+      counter < Math.ceil(data.length / itemsPerPage);
+      counter++
+    ) {
       pageNumbers.push(
         <Pagination.Item
+          key={counter}
           onClick={() => {
-            props.SetActivePagination(i + 1);
-            props.FetchCryptos(
-              i * datasPerPages + 1,
-              datasPerPages,
-              props.selectedCurrency
-            );
+            activePage === counter + 1
+              ? FetchCryptos(selectedCurrency)
+              : SetActivePagination(counter + 1);
           }}
-          active={i + 1 === props.activePagination}
+          active={counter + 1 === activePage}
         >
-          {parseInt(i + 1)}
+          {parseInt(counter + 1)}
         </Pagination.Item>
       );
     }
   }
 
-  return <Pagination>{pageNumbers}</Pagination>;
+  return (
+    <Pagination className="w-100">
+      <Pagination.First
+        onClick={() => {
+          activePage === 1
+            ? FetchCryptos(selectedCurrency)
+            : SetActivePagination(1);
+        }}
+      />
+      <Pagination.Prev
+        onClick={() => {
+          activePage === 1
+            ? FetchCryptos(selectedCurrency)
+            : SetActivePagination(parseInt(activePage - 1));
+        }}
+      />
+      {pageNumbers}
+      <Pagination.Next
+        onClick={() => {
+          activePage === Math.ceil(data.length / itemsPerPage)
+            ? FetchCryptos(selectedCurrency)
+            : SetActivePagination(parseInt(activePage + 1));
+        }}
+      />
+      <Pagination.Last
+        onClick={() => {
+          activePage === Math.ceil(data.length / itemsPerPage)
+            ? FetchCryptos(selectedCurrency)
+            : SetActivePagination(Math.ceil(data.length / itemsPerPage));
+        }}
+      />
+    </Pagination>
+  );
 };
 
 const mapStateToProps = state => {
   return {
-    activePagination: state.pagination.activePagination,
+    activePage: state.pagination.activePage,
     data: state.crypto.data,
-    selectedCurrency: state.currency.selectedCurrency
+    selectedCurrency: state.currency.selectedCurrency,
+    itemsPerPage: state.pagination.itemsPerPage
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    SetActivePagination: active => dispatch(setActivePagination(active)),
-    FetchCryptos: (start, limit, cur) =>
-      dispatch(fetchCryptos(start, limit, cur))
+    SetActivePagination: active => dispatch(setActivePage(active)),
+    FetchCryptos: cur => dispatch(fetchCryptos(cur)),
+    SetItemsPerPage: items => dispatch(setItemsPerPage(items))
   };
 };
 

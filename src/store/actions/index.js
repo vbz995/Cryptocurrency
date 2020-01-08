@@ -1,1 +1,8 @@
-export {fetchCryptosSuccess, fetchCryptosFail, fetchCryptosRequest, fetchCryptos} from './crypto'
+export {
+  fetchCryptos,
+  fetchBitcoin,
+  getSelectedCrypto,
+  selectedCryptoId
+} from "./crypto";
+export { selectCurrency } from "./currency";
+export { setItemsPerPage, setActivePage } from "./pagination";

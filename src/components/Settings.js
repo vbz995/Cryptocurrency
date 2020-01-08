@@ -1,17 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dropdown, DropdownButton, Container } from "react-bootstrap";
-import { selectCurrency } from "../store/actions/currency";
+import { selectCurrency } from "../store/actions/index";
 import { connect } from "react-redux";
-
+import styled from "styled-components";
+const H3 = styled.h3`
+  color: green;
+`;
 const Currency = props => {
+  const [ShowText, setShowText] = useState(false);
   const { SelectCurrency, selectedCurrency } = props;
   return (
     <Container>
-      <h3>Selected Currency: {selectedCurrency}</h3>
+      {ShowText ? <H3>You choose {selectedCurrency} currency</H3> : null}
       <DropdownButton id="dropdown-basic-button" title="Select currency">
-        <Dropdown.Item onClick={() => SelectCurrency("USD")}>USD</Dropdown.Item>
-        <Dropdown.Item onClick={() => SelectCurrency("EUR")}>EUR</Dropdown.Item>
-        <Dropdown.Item onClick={() => SelectCurrency("CNY")}>CNY</Dropdown.Item>
+        <Dropdown.Item
+          onClick={() => {
+            SelectCurrency("USD");
+            setShowText(true);
+          }}
+        >
+          USD
+        </Dropdown.Item>
+        <Dropdown.Item
+          onClick={() => {
+            SelectCurrency("EUR");
+            setShowText(true);
+          }}
+        >
+          EUR
+        </Dropdown.Item>
+        <Dropdown.Item
+          onClick={() => {
+            SelectCurrency("CNY");
+            setShowText(true);
+          }}
+        >
+          CNY
+        </Dropdown.Item>
       </DropdownButton>
     </Container>
   );

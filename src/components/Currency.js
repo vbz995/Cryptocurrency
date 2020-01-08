@@ -1,6 +1,6 @@
 import React from "react";
 import { Dropdown, DropdownButton } from "react-bootstrap";
-import selectCurrency from "../store/actions/currency";
+import selectCurrency from "../store/actions/index";
 import { connect } from "react-redux";
 
 const Currency = props => {
